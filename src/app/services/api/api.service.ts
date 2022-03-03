@@ -1,19 +1,8 @@
 import {Injectable} from '@angular/core';
-import {environment} from '../../../environments/environment';
+import {Observable} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
-import {Observable} from "rxjs";
-
-/**
- * Post model
- *
- * Toto je model příspěvku
- */
-export interface Post {
-  id: number;
-  userId: string;
-  title: string;
-  body: string;
-}
+import {Post} from '../../models/post.model';
+import {environment} from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -25,15 +14,19 @@ export class ApiService {
   ) {
   }
 
+  /**
+   * Get all posts
+   */
   posts$(): Observable<Post[]> {
-    // https://jsonplaceholder.typicode.com/posts
-    const endpoint = environment.apiBase + '/posts';
-    return this.http.get<Post[]>(endpoint);
+    return this.http.get<Post[]>(environment.apiBase + '/posts');
   }
 
-  post$(id: number): Observable<Post> {
-    // https://jsonplaceholder.typicode.com/posts/2
-    const endpoint = environment.apiBase + '/posts/' + id;
-    return this.http.get<Post>(endpoint);
+  /**
+   * Get single post by ID
+   * @param id
+   */
+  post$(id: string): Observable<Post> {
+    // return this.http.get<Post>(`https://jsonplaceholder.typicode.com/posts/${id}`);
+    return this.http.get<Post>(environment.apiBase + '/posts/' + id);
   }
 }

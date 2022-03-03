@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
-import {ApiService, Post} from '../services/api/api.service';
+import {ApiService} from '../services/api/api.service';
 import {Observable} from 'rxjs';
+import {Post} from '../models/post.model';
 
 @Component({
   selector: 'app-tab1',
@@ -16,11 +17,12 @@ export class Tab1Page {
   constructor(
     private api: ApiService
   ) {
-    // set observer to posts$
     this.posts$ = this.api.posts$();
-
-    /* this.posts$.subscribe(data=>{
-    });*/
+    /*
+    this.api.posts$().subscribe(posts => {
+      console.log(posts);
+    });
+     */
   }
 
   plus() {
