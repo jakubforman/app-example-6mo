@@ -31,7 +31,7 @@ export class ApiService {
     return this.http.get<Post[]>(endpoint);
   }
 
-  post$(id: number): Observable<Post> {
+  post$(id: string): Observable<Post> {
     // https://jsonplaceholder.typicode.com/posts/2
     const endpoint = environment.apiBase + '/posts/' + id;
     return this.http.get<Post>(endpoint);

@@ -1,0 +1,15 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Detail příspěvku</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div *ngIf="post$ | async; let post" class="ion-padding">
+    <h1>{{post.title}}</h1>
+    <p>{{post.body}}</p>
+  </div>
+</ion-content>

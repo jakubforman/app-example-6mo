@@ -15,7 +15,8 @@
 
   <!-- vycyklení obsahu příspěvků -->
   <ion-list>
-    <ion-item *ngFor="let post of posts$ | async">
+    <ion-item *ngFor="let post of posts$ | async"
+    [routerLink]="['/detail', post.id]">
       <ion-label>{{post.title}}</ion-label>
     </ion-item>
   </ion-list>
