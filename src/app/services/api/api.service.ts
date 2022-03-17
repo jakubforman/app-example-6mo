@@ -33,9 +33,27 @@ export class ApiService {
     // return this.http.get<Post>(`https://jsonplaceholder.typicode.com/posts/${id}`);
     // this.storage.getPost(Number.parseInt(id)); // TODO: dokončit načítání z localu
 
-    return this.http.get<Post>(environment.apiBase + '/posts/' + id)
-      .pipe(tap(post => {
-        this.storage.savePost(post);
-      }));
+    return new Observable<Post>(subscriber => {
+      // promise
+      this.storage.getPost(Number(id))
+        .then(post => {
+          if (post) {
+            // zde vrátím data až je mám
+            subscriber.next(post);
+          } else {
+            // subscribe/observable
+            this.http.get<Post>(environment.apiBase + '/posts/' + id)
+
+              .pipe(tap(_post => {
+                this.storage.savePost(_post);
+              }))
+
+              .subscribe(_post => {
+                // zde vrátím data až je mám
+                subscriber.next(_post);
+              });
+          }
+        });
+    });
   }
 }
